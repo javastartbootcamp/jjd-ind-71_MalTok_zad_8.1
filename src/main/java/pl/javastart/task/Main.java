@@ -1,5 +1,7 @@
 package pl.javastart.task;
 
+import pl.javastart.task.app.UniversityApp;
+
 public class Main {
 
     // uzupełnij metody w UniversityApp zgodnie z dokumentacją
