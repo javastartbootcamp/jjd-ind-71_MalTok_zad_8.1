@@ -2,11 +2,13 @@ package pl.javastart.task.model;
 
 public class Grade {
     private double grade;
-    private String groupCode;
+    private Group group;
+    private Student student;
 
-    public Grade(double grade, String groupCode) {
+    public Grade(double grade, Group group, Student student) {
         this.grade = grade;
-        this.groupCode = groupCode;
+        this.group = group;
+        this.student = student;
     }
 
     public double getGrade() {
@@ -17,15 +19,23 @@ public class Grade {
         this.grade = grade;
     }
 
-    public String getGroupCode() {
-        return groupCode;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroupCode(String groupCode) {
-        this.groupCode = groupCode;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
-    public double info() {
-        return grade;
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public String info() {
+        return student.info() + ": " + grade;
     }
 }

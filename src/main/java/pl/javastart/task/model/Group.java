@@ -1,12 +1,14 @@
 package pl.javastart.task.model;
 
+import java.util.Arrays;
+
 public class Group {
     private String code;
     private String name;
     private Lecturer lecturer;
-    private final Student[] students;
+    private Student[] students; //studenci zapisani w grupie
     private int studentEmptyIndex = 0;
-    private int maxStudents = 30;
+    private int maxStudents = 30; //zakładana optymalna wielkość grupy
 
     public Group(String code, String name, Lecturer lecturer) {
         this.code = code;
@@ -59,14 +61,45 @@ public class Group {
         this.studentEmptyIndex = studentEmptyIndex;
     }
 
-    public void printInfo() {
-        System.out.println("Kod: " + code);
-        System.out.println("Nazwa: " + name);
-        System.out.println("Prowadzący: " + lecturer.info());
-        for (Student student : students) {
-            if (student != null) {
-                System.out.println(student.info());
+    public void addStudent(Student student) {
+        if (studentEmptyIndex <= students.length) {
+            students[studentEmptyIndex] = student;
+            studentEmptyIndex++;
+        } else {
+            students = Arrays.copyOf(students, students.length * 2);
+        }
+    }
+
+    public boolean containsStudent(int index) {
+        boolean foundStudent = false;
+        for (int i = 0; i < studentEmptyIndex; i++) {
+            Student groupStudent = students[i];
+            if (groupStudent.getIndex() == index) {
+                foundStudent = true;
+                break;
             }
         }
+        return foundStudent;
+    }
+
+    public Student findStudentByIndex(int index) {
+        Student foundStudent = null;
+        for (int i = 0; i < studentEmptyIndex; i++) {
+            if (students[i].getIndex() == index) {
+                foundStudent = students[i];
+            }
+        }
+        return foundStudent;
+    }
+
+    public String info() {
+        StringBuilder groupInfo = new StringBuilder("Kod: " + code + "\n" + "Nazwa: " + name + "\n" + "Prowadzący: "
+                + lecturer.info() + "\n");
+
+        for (int i = 0; i < studentEmptyIndex; i++) {
+            Student student = students[i];
+            groupInfo.append(student.info()).append("\n");
+        }
+        return groupInfo.toString();
     }
 }
