@@ -18,22 +18,6 @@ public class UniversityApp {
     private int countGroups = 0;
     private int countAllStudents = 0;
 
-    public Lecturer[] getLecturers() {
-        return lecturers;
-    }
-
-    public Group[] getGroups() {
-        return groups;
-    }
-
-    public Student[] getAllStudents() {
-        return allStudents;
-    }
-
-    public Grade[] getGrades() {
-        return grades;
-    }
-
     /**
      * Tworzy prowadzącego zajęcia.
      * W przypadku gdy prowadzący z zadanym id już istnieje, wyświetlany jest komunikat:
@@ -55,12 +39,11 @@ public class UniversityApp {
     }
 
     private void addLecturer(Lecturer lecturer) {
-        if (countLecturers <= lecturers.length) {
-            lecturers[countLecturers] = lecturer;
-            countLecturers++;
-        } else {
+        if (countLecturers == lecturers.length) {
             lecturers = Arrays.copyOf(lecturers, lecturers.length * 2);
         }
+        lecturers[countLecturers] = lecturer;
+        countLecturers++;
     }
 
     private boolean checkLecturerExists(int lecturerId) {
@@ -106,12 +89,11 @@ public class UniversityApp {
     }
 
     private void addGroup(Group group) {
-        if (countGroups <= groups.length) {
-            groups[countGroups] = group;
-            countGroups++;
-        } else {
+        if (countGroups == groups.length) {
             groups = Arrays.copyOf(groups, groups.length * 2);
         }
+        groups[countGroups] = group;
+        countGroups++;
     }
 
     private boolean checkGroupExists(String code) {
@@ -158,12 +140,12 @@ public class UniversityApp {
     private void addUniqueStudent(Student student) {
         boolean found = findUniqueStudent(student);
         if (!found) {
-            if (countAllStudents <= allStudents.length) {
-                allStudents[countAllStudents] = student;
-                countAllStudents++;
-            } else {
+            if (countAllStudents == allStudents.length) {
                 allStudents = Arrays.copyOf(allStudents, allStudents.length * 2);
+
             }
+            allStudents[countAllStudents] = student;
+            countAllStudents++;
         }
     }
 
@@ -171,15 +153,11 @@ public class UniversityApp {
         boolean found = false;
         for (int i = 0; i < countAllStudents; i++) {
             if (allStudents[i].getIndex() == student.getIndex()) {
-                showMessage(allStudents[i].getIndex());
+                System.out.println("Student o indeksie " + student.getIndex() + " już istnieje");
                 found = true;
             }
         }
         return found;
-    }
-
-    private static void showMessage(int index) {
-        System.out.println("Student o indeksie " + index + " już istnieje");
     }
 
     /**
@@ -240,12 +218,11 @@ public class UniversityApp {
     }
 
     private void addGradeToArray(double grade, Group foundGroup, Student student) {
-        if (countGrades <= grades.length) {
-            grades[countGrades] = new Grade(grade, foundGroup, student);
-            countGrades++;
-        } else {
+        if (countGrades == grades.length) {
             grades = Arrays.copyOf(grades, grades.length * 2);
         }
+        grades[countGrades] = new Grade(grade, foundGroup, student);
+        countGrades++;
     }
 
     private boolean gradeExists(Group group, Student student) {

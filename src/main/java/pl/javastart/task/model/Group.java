@@ -62,12 +62,12 @@ public class Group {
     }
 
     public void addStudent(Student student) {
-        if (studentEmptyIndex <= students.length) {
-            students[studentEmptyIndex] = student;
-            studentEmptyIndex++;
-        } else {
+        if (studentEmptyIndex == students.length) {
             students = Arrays.copyOf(students, students.length * 2);
         }
+        students[studentEmptyIndex] = student;
+        studentEmptyIndex++;
+
     }
 
     public boolean containsStudent(int index) {
